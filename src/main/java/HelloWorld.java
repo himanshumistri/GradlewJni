@@ -1,5 +1,5 @@
 public class HelloWorld {
-    public native void print();
+    public native String print();
 
     static {
         System.loadLibrary("hello");

@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'application' // Add the application plugin
+
 }
 
 group 'org.example'
@@ -10,6 +12,17 @@ sourceCompatibility = 11
 repositories {
     mavenCentral()
 }
+
+application {
+    mainClass = "HelloWorldMe" // Fully qualified name of your main class
+}
+
+
+tasks.named("run", JavaExec) {
+    systemProperty "java.library.path", file("${project(":hello").buildDir}/lib/main/debug").absolutePath
+    dependsOn ":hello:linkDebug" // Ensure the library is built before running
+}
+
 
 dependencies {
     //testCompile group: 'junit', name: 'junit', version: '4.12'
