@@ -39,4 +39,10 @@ test {
     systemProperty "java.library.path", file("${project(":hello").buildDir}/lib/main/debug").absolutePath
 }
 
+tasks.wrapper {
+    gradleVersion = '8.3' // Replace this with your desired Gradle version
+    distributionType = Wrapper.DistributionType.BIN
+}
+
+
 test.dependsOn  ':hello:linkDebug'
