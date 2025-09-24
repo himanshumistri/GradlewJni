@@ -1,0 +1,41 @@
+cmake_minimum_required(VERSION 3.14)
+
+# Define the project name and language
+project(native-lib LANGUAGES C CXX)
+
+# Set the C++ Standard
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Include JNI headers from the JDK
+find_package(Java REQUIRED)
+find_package(JNI REQUIRED)
+
+include_directories("${JNI_INCLUDE_DIRS}")
+
+# Include platform-specific JNI headers
+if(APPLE)
+    include_directories("${JAVA_HOME}/include/darwin")
+    add_compile_options("-std=c++11" "-target" "arm64-apple-macos11") # ARM (aarch64) on macOS
+elseif(UNIX)
+    include_directories("${JAVA_HOME}/include/linux")
+    add_compile_options("-std=c++11")
+elseif(WIN32)
+    include_directories("${JAVA_HOME}/include/win32")
+    add_compile_options("/std:c++11")
+endif()
+
+# Define the source directory for native code
+file(GLOB_RECURSE NATIVE_SOURCES src/main/c/*.c src/main/c/*.cpp)
+
+# Define the shared library
+add_library(native-lib SHARED ${NATIVE_SOURCES})
+
+# Link against any platform-specific libraries, if needed
+if(APPLE)
+    target_link_libraries(native-lib "-framework CoreFoundation") # Example of macOS-specific libraries
+elseif(UNIX)
+    target_link_libraries(native-lib pthread)
+elseif(WIN32)
+    target_link_libraries(native-lib ws2_32)
+endif()

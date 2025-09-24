@@ -1,0 +1,36 @@
+# Ignore build directories
+src/build/
+app/build/
+build
+
+# Gradle files
+.gradle/
+**/build/
+!gradle-wrapper.jar
+out/
+build/
+
+# Log files
+*.log
+
+# Ignore IDE-specific files
+# IntelliJ IDEA
+.gradle/
+.idea/
+*.iml
+*.ipr*
+*.iws
+*.class
+*.project
+*.classpath
+
+# macOS-specific files
+.DS_Store
+
+# Native/C++ files
+CMakeFiles/
+CMakeCache.txt
+*.cmake
+/test-bin/
+*~  # Temporary editor files
+ven

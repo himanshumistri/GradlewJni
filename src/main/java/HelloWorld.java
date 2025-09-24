@@ -2,6 +2,6 @@ public class HelloWorld {
     public native String print();
 
     static {
-        System.loadLibrary("hello");
+        System.loadLibrary("app");
     }
 }

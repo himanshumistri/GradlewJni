@@ -18,8 +18,8 @@ application {
 
 
 tasks.named("run", JavaExec) {
-    systemProperty "java.library.path", file("${project(":hello").buildDir}/lib/main/debug").absolutePath
-    dependsOn ":hello:linkDebug" // Ensure the library is built before running
+    systemProperty "java.library.path", file("${project(":app").buildDir}/lib/main/debug").absolutePath
+    dependsOn ":app:linkDebug" // Ensure the library is built before running
 }
 
 
@@ -36,7 +36,7 @@ dependencies {
 
 
 test {
-    systemProperty "java.library.path", file("${project(":hello").buildDir}/lib/main/debug").absolutePath
+    systemProperty "java.library.path", file("${project(":app").buildDir}/lib/main/debug").absolutePath
 }
 
 tasks.wrapper {
